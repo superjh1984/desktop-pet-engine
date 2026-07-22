@@ -3,7 +3,9 @@
 
   <h1>Desktop Pet Engine for macOS</h1>
 
-  <p>用你自己的角色和动作素材，做一只真正住在 macOS 桌面上的原生宠物。</p>
+  <p>Turn your own character and action assets into a native pet that truly lives on the macOS desktop.</p>
+
+  <p><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
 
   <p>
     <img src="https://img.shields.io/badge/macOS-12%2B-0A84FF?style=flat-square" alt="macOS 12+">
@@ -14,38 +16,38 @@
   </p>
 </div>
 
-## 先看它动起来
+## See it in action
 
 <div align="center">
   <img src="docs/media/demo.gif" alt="Desktop Pet Engine action demo" width="100%">
 </div>
 
 <p align="center">
-  <a href="docs/media/demo.mp4">打开 8 秒高清 MP4 演示</a>
+  <a href="docs/media/demo.mp4">Open the 8-second HD MP4 demo</a>
 </p>
 
-> 首页角色画面来自一个单独保存的非官方角色 Demo，只用于展示引擎效果。角色原始帧、源视频、提示词、安装包和私人项目均未公开；这些首页宣传媒体不属于 Apache-2.0 开源授权，也不代表任何人物、球队、品牌或其他权利方授权、合作或背书。详见 [媒体边界说明](docs/media/README.md)。
+> The character shown on this page comes from a separately maintained, unofficial character demo and is included only to demonstrate the engine. Its source frames, source videos, prompts, app bundle, and private project are not published. These promotional renders are not covered by the Apache-2.0 license and do not imply authorization, affiliation, cooperation, or endorsement by any person, team, brand, or other rights holder. See the [media boundary notes](docs/media/README.md).
 
-## 它不是一张会动的贴纸
+## More than an animated sticker
 
-这是一个轻量的原生 AppKit 桌宠引擎。宠物拥有透明无边框窗口、像素级命中、拖拽、鼠标方向待机、悬停反应、右键动作菜单和自主动作状态机；窗口透明区域会尽量把鼠标事件交还给桌面。
+This is a lightweight native AppKit desktop-pet engine. It provides a transparent borderless window, per-pixel hit testing, drag interaction, cursor-aware idle poses, hover reactions, a contextual action menu, and an autonomous action state machine. Transparent regions of the pet window pass pointer events through to the desktop whenever possible.
 
-| 能力 | 已实现 |
+| Capability | Included |
 | --- | --- |
-| 原生桌面体验 | AppKit 透明置顶窗口，不依赖 Electron |
-| 精确交互 | 按当前动画帧 Alpha 做像素命中与点击穿透 |
-| 行为系统 | 待机、手动动作、随机动作、自主动作与中断恢复 |
-| 素材流水线 | 检测 Alpha、黑/绿幕抠像、统一画布、生成 PNG 帧包 |
-| 可复现发布 | 一键构建并校验 x86_64 + arm64 Universal 2 App |
-| Agent 工作流 | 内置可安装的 Codex 桌宠制作 Skill |
+| Native desktop experience | Transparent always-on-top AppKit window, with no Electron dependency |
+| Precise interaction | Alpha-aware hit testing and click-through based on the current animation frame |
+| Behavior system | Idle, manual, random, and autonomous actions with interruption recovery |
+| Asset pipeline | Alpha detection, black/green-screen removal, normalized canvas, and PNG frame-pack generation |
+| Reproducible builds | One-command build and validation for an x86_64 + arm64 Universal 2 app |
+| Agent workflow | An installable Codex skill for building and auditing desktop pets |
 
 <div align="center">
   <img src="docs/media/desktop-preview.png" alt="Native macOS desktop pet preview" width="100%">
 </div>
 
-## 两条命令跑起来
+## Run it in two commands
 
-要求：macOS 12 或更高版本、Xcode Command Line Tools。
+Requirements: macOS 12 or later and Xcode Command Line Tools.
 
 ```bash
 git clone https://github.com/superjh1984/desktop-pet-engine.git
@@ -54,68 +56,68 @@ cd desktop-pet-engine
 ./scripts/run_demo.sh
 ```
 
-构建产物位于 `dist/桌宠引擎.app`。本地构建采用临时签名；公开发布二进制文件前，请使用自己的 Developer ID 并完成 Apple 公证。
+The resulting app is written to `dist/桌宠引擎.app`. Local builds use ad-hoc signing. Before distributing a binary release, sign it with your own Developer ID and complete Apple notarization.
 
-## 换成你自己的角色
+## Bring your own character
 
-1. 复制 `assets_config.example.json` 为 `assets_config.json`。
-2. 填入你有权使用的透明视频，或纯黑/纯绿背景视频。
-3. 安装 FFmpeg，然后生成帧包并自检：
+1. Copy `assets_config.example.json` to `assets_config.json`.
+2. Add transparent videos—or clean black/green-background videos—that you have the right to use.
+3. Install FFmpeg, generate the frame pack, and run the checks:
 
 ```bash
 ./scripts/preprocess_assets.py
 ./scripts/check_demo.sh
 ```
 
-预处理脚本会检查编码与 Alpha，必要时抠除纯色背景，将人物等比放入统一的 360×360 透明画布，并写入 `manifest.json`。应用启动后自动读取素材，不需要把动作硬编码进播放器。
+The preprocessing script checks the codec and alpha channel, removes a solid background when needed, fits the character proportionally into a consistent 360×360 transparent canvas, and writes `manifest.json`. The app discovers the generated assets at launch, so actions do not need to be hard-coded into the player.
 
 <div align="center">
   <img src="docs/media/action-grid.png" alt="Desktop pet action examples" width="100%">
 </div>
 
-仓库内置的 Blob 示例宠物由 `scripts/generate_demo_assets.py` 程序生成，可以随时重新创建：
+The repository's built-in Blob demo pet is generated programmatically by `scripts/generate_demo_assets.py` and can be recreated at any time:
 
 ```bash
 python3 -m pip install pillow
 ./scripts/generate_demo_assets.py
 ```
 
-## 项目结构
+## Project structure
 
 ```text
-Sources/DesktopPetEngine/  AppKit 桌宠代码与开源 Blob 帧包
-scripts/                   素材生成、预处理、构建、媒体与自检脚本
-packaging/                 macOS App 包信息
-docs/media/                首页截图、GIF、MP4 与媒体边界说明
-assets_config.example.json 本地素材配置模板
-skill/                     可安装的 Codex 桌宠制作 Skill
+Sources/DesktopPetEngine/  AppKit engine and open-source Blob frame pack
+scripts/                   Asset generation, preprocessing, build, media, and validation tools
+packaging/                 macOS app bundle metadata
+docs/media/                Homepage images, GIF, MP4, and media boundary notes
+assets_config.example.json Local asset configuration template
+skill/                     Installable Codex desktop-pet skill
 ```
 
-## 安装 Codex Skill
+## Install the Codex skill
 
-仓库包含 `build-macos-desktop-pet` Skill。它可以从干净模板创建项目、处理动作素材、构建双架构 App，并在公开发布前扫描本机路径、签名链接、凭据及指定的受限名称。
+The repository includes the `build-macos-desktop-pet` skill. It can create a project from a clean template, process action assets, build a universal app, and scan a release for local paths, signing links, credentials, and configured restricted names.
 
 ```bash
 cp -R skill/build-macos-desktop-pet ~/.codex/skills/
 ```
 
-安装后可以直接说：
+After installation, ask Codex:
 
 ```text
-使用 $build-macos-desktop-pet，把我拥有版权的透明动作视频做成 macOS 桌宠。
+Use $build-macos-desktop-pet to turn my licensed transparent action videos into a macOS desktop pet.
 ```
 
-## 素材与权利边界
+## Assets and rights
 
-- 只提交你创作或已取得明确再分发授权的视觉、音频和角色素材。
-- AI 生成不会自动消除真人姓名、肖像、声音、球队标志、球衣、商标或受保护角色可能涉及的权利。
-- 每个新增素材包都应记录来源、作者、授权范围和许可证。
-- 首页角色宣传媒体仅用于展示引擎，不表示其角色素材已经开源，也不应被提取为素材包继续传播。
+- Commit only visual, audio, and character assets that you created or are explicitly licensed to redistribute.
+- AI generation does not automatically resolve rights associated with a real person's name, likeness, or voice, or with team marks, uniforms, trademarks, and protected characters.
+- Record the source, author, permitted uses, and license for every asset pack you add.
+- The character renders on this page demonstrate the engine only. They do not indicate that the underlying character assets are open source and should not be extracted or redistributed as an asset pack.
 
-## 开源许可
+## License
 
-引擎代码、脚本、Skill，以及由 `generate_demo_assets.py` 生成的 Blob 示例素材采用 Apache License 2.0。
+The engine code, scripts, skill, and Blob example assets generated by `generate_demo_assets.py` are licensed under the Apache License 2.0.
 
-`docs/media/hero.png`、`desktop-preview.png`、`action-grid.png`、`demo.gif` 与 `demo.mp4` 是单独标识的角色展示媒体，明确排除在 Apache-2.0 授权范围之外。用户自行导入的素材同样保持其原有权利状态。
+`docs/media/hero.png`, `desktop-preview.png`, `action-grid.png`, `demo.gif`, and `demo.mp4` are separately identified character showcase media and are expressly excluded from the Apache-2.0 license. User-imported assets retain their original rights status.
 
-参见 [LICENSE](LICENSE)、[NOTICE](NOTICE)、[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 与 [贡献指南](CONTRIBUTING.md)。
+See [LICENSE](LICENSE), [NOTICE](NOTICE), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), and the [contribution guide](CONTRIBUTING.md).
