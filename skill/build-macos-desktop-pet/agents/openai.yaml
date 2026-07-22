@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build macOS Desktop Pet"
+  short_description: "Build and package native macOS desktop pets"
+  default_prompt: "Use $build-macos-desktop-pet to create a rights-safe native macOS desktop pet from my owned assets."

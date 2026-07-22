@@ -1,0 +1,73 @@
+# Desktop Pet Engine for macOS
+
+一个轻量的原生 macOS 桌宠模板：透明无边框窗口、始终置顶、像素级点击穿透、拖拽、鼠标方向待机、右键动作菜单和自主动作状态机。
+
+仓库只包含通用代码与程序生成的原创 Blob 示例宠物，不包含任何真人、球队、影视、动漫或品牌素材。
+
+## 快速开始
+
+要求：macOS 12 或更高版本、Xcode Command Line Tools。
+
+```bash
+./scripts/check_demo.sh
+./scripts/run_demo.sh
+```
+
+构建产物位于 `dist/桌宠引擎.app`。本地构建使用临时签名；公开发布二进制文件前，请改用自己的 Developer ID 并完成 Apple 公证。
+
+## 替换成自己的宠物
+
+1. 复制 `assets_config.example.json` 为 `assets_config.json`。
+2. 在配置中填写你有权使用的透明视频或纯黑/纯绿背景视频。
+3. 安装 FFmpeg 后运行：
+
+```bash
+./scripts/preprocess_assets.py
+./scripts/check_demo.sh
+```
+
+预处理脚本会检测 Alpha、抠纯色背景、统一到 360×360 透明画布，并生成 PNG 序列和 `manifest.json`。
+
+重新生成仓库内的原创示例素材：
+
+```bash
+python3 -m pip install pillow
+./scripts/generate_demo_assets.py
+```
+
+## 素材要求
+
+- 只提交你创作或已取得明确授权的素材。
+- 不提交未经授权的真人肖像、姓名、声音、球队标志、球衣、商标或受保护角色。
+- AI 生成不会自动消除第三方权利；提交者仍需确认输入、参考图和输出的使用权。
+- 将第三方素材授权信息记录在提交说明中。
+
+## 目录
+
+```text
+Sources/DesktopPetEngine/  AppKit 桌宠代码与示例序列帧
+scripts/                   素材生成、预处理、构建与自检
+packaging/                 App 包信息
+assets_config.example.json 素材配置模板
+skill/                      可安装的 Codex 桌宠制作 Skill
+```
+
+## 安装 Codex Skill
+
+仓库同时包含 `build-macos-desktop-pet` Skill，用于从安全模板创建桌宠、处理动作素材、构建双架构 App，并在公开发布前扫描本地路径、签名链接、凭据和指定的受限名称。
+
+```bash
+cp -R skill/build-macos-desktop-pet ~/.codex/skills/
+```
+
+安装后可这样调用：
+
+```text
+使用 $build-macos-desktop-pet，把我拥有版权的透明动作视频做成 macOS 桌宠。
+```
+
+## 开源许可
+
+代码、脚本以及仓库内由 `generate_demo_assets.py` 生成的 Blob 示例素材采用 Apache License 2.0。你导入的素材保持其原有权利状态，不会因使用本项目而自动获得 Apache-2.0 许可。
+
+参见 [LICENSE](LICENSE)、[NOTICE](NOTICE) 和 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。

@@ -1,0 +1,9 @@
+.build/
+dist/
+.DS_Store
+*.mov
+*.mp4
+*.dmg
+*.zip
+assets_config.json
+

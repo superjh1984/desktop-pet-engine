@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "canvasWidth": 360,
+  "canvasHeight": 360,
+  "animations": {
+    "idle": {
+      "fps": 1.0,
+      "frameCount": 9,
+      "directionFrames": {
+        "center": 0,
+        "upLeft": 1,
+        "up": 2,
+        "upRight": 3,
+        "right": 4,
+        "downRight": 5,
+        "down": 6,
+        "downLeft": 7,
+        "left": 8
+      },
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "walk": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "dance": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "playBall": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "eat": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "drink": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "yawn": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "frustrated": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "crying": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "shy": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "happy": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "rowing": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    },
+    "meditation": {
+      "fps": 12.0,
+      "frameCount": 16,
+      "sourceFile": "programmatic-demo-blob"
+    }
+  }
+}
