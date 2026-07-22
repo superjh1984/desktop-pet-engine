@@ -1,9 +1,12 @@
 .build/
 dist/
+.media/
+__pycache__/
+*.pyc
 .DS_Store
 *.mov
 *.mp4
+!docs/media/*.mp4
 *.dmg
 *.zip
 assets_config.json
-

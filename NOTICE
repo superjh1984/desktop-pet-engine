@@ -7,3 +7,8 @@ specifically for this project and are distributed under Apache License 2.0.
 User-supplied asset packs are not covered by this NOTICE or the project's
 license unless their rights holder explicitly says otherwise.
 
+The character showcase renders under docs/media/hero.png,
+docs/media/desktop-preview.png, docs/media/action-grid.png,
+docs/media/demo.gif, and docs/media/demo.mp4 are excluded from the
+Apache License 2.0 grant. They demonstrate engine behavior only; their source
+character pack and private demo application are not distributed here.

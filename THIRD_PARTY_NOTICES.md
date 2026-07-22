@@ -6,3 +6,6 @@
 
 Review the licenses of optional tools independently before redistributing them or their binaries.
 
+## Unofficial character showcase
+
+The rendered homepage media may depict a recognizable person together with team or brand elements. It is an unofficial, non-endorsed engine demonstration. The repository does not claim or grant rights from any depicted person, team, brand, or other third party, and does not distribute the underlying character pack or private demo application.
