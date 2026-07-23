@@ -41,6 +41,16 @@
 | 可复现发布 | 一键构建并校验 x86_64 + arm64 Universal 2 App |
 | Agent 工作流 | 内置可安装的 Codex 桌宠制作 Skill |
 
+## 鼠标互动
+
+在宠物周围移动鼠标，它会感知指针的位置和移动方向并作出回应。在这段演示中，角色会追踪、伸手捕捉并抓住鼠标指针，而不是简单地循环播放固定动画。
+
+<div align="center">
+  <img src="docs/media/mouse-interaction.gif" alt="桌面宠物追踪并抓住鼠标指针" width="80%">
+</div>
+
+引擎同时使用逐像素 Alpha 命中检测：拖拽和右键动作菜单只作用于可见角色区域，宠物窗口的透明区域则会尽可能把鼠标事件交还给桌面。
+
 <div align="center">
   <img src="docs/media/desktop-preview.png" alt="原生 macOS 桌面宠物预览" width="100%">
 </div>
@@ -118,6 +128,6 @@ cp -R skill/build-macos-desktop-pet ~/.codex/skills/
 
 引擎代码、脚本、Skill，以及由 `generate_demo_assets.py` 生成的 Blob 示例素材采用 Apache License 2.0。
 
-`docs/media/hero.png`、`desktop-preview.png`、`action-grid.png`、`demo.gif` 与 `demo.mp4` 是单独标识的角色展示媒体，明确排除在 Apache-2.0 授权范围之外。用户自行导入的素材同样保持其原有权利状态。
+`docs/media/hero.png`、`desktop-preview.png`、`action-grid.png`、`demo.gif`、`demo.mp4` 与 `mouse-interaction.gif` 是单独标识的角色展示媒体，明确排除在 Apache-2.0 授权范围之外。用户自行导入的素材同样保持其原有权利状态。
 
 参见 [LICENSE](LICENSE)、[NOTICE](NOTICE)、[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 与 [贡献指南](CONTRIBUTING.md)。

@@ -9,6 +9,7 @@ license unless their rights holder explicitly says otherwise.
 
 The character showcase renders under docs/media/hero.png,
 docs/media/desktop-preview.png, docs/media/action-grid.png,
-docs/media/demo.gif, and docs/media/demo.mp4 are excluded from the
-Apache License 2.0 grant. They demonstrate engine behavior only; their source
-character pack and private demo application are not distributed here.
+docs/media/demo.gif, docs/media/demo.mp4, and
+docs/media/mouse-interaction.gif are excluded from the Apache License 2.0
+grant. They demonstrate engine behavior only; their source character pack and
+private demo application are not distributed here.
