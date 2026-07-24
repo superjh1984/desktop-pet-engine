@@ -10,3 +10,6 @@ __pycache__/
 *.dmg
 *.zip
 assets_config.json
+.petpack/
+petpack.local.json
+pet-pack-output/

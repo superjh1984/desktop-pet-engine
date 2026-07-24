@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "providers": [
+    {
+      "id": "aliyun",
+      "name": "Alibaba Cloud Model Studio",
+      "credential_env": "DASHSCOPE_API_KEY",
+      "base_url_env": "DASHSCOPE_BASE_URL",
+      "default_base_url": "",
+      "docs_url": "https://help.aliyun.com/zh/model-studio/wan-animate-move-api"
+    },
+    {
+      "id": "byteplus",
+      "name": "BytePlus ModelArk",
+      "credential_env": "ARK_API_KEY",
+      "base_url_env": "BYTEPLUS_ARK_BASE_URL",
+      "default_base_url": "https://ark.ap-southeast.bytepluses.com",
+      "docs_url": "https://docs.byteplus.com/en/docs/ModelArk/1520757"
+    },
+    {
+      "id": "volcengine",
+      "name": "Volcengine Ark",
+      "credential_env": "ARK_API_KEY",
+      "base_url_env": "VOLCENGINE_ARK_BASE_URL",
+      "default_base_url": "https://ark.cn-beijing.volces.com",
+      "docs_url": "https://www.volcengine.com/docs/82379/1520757"
+    },
+    {
+      "id": "kling",
+      "name": "Kling AI Developer Platform",
+      "credential_env": "KLING_API_KEY",
+      "base_url_env": "KLING_BASE_URL",
+      "default_base_url": "",
+      "docs_url": "https://kling.ai/dev"
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "credential_env": "OPENAI_API_KEY",
+      "base_url_env": "OPENAI_BASE_URL",
+      "default_base_url": "https://api.openai.com",
+      "docs_url": "https://developers.openai.com/api/docs/guides/image-generation"
+    }
+  ],
+  "models": [
+    {
+      "id": "wan2.2-animate-move",
+      "provider": "aliyun",
+      "api_model": "wan2.2-animate-move",
+      "adapter": "dashscope-wan-animate",
+      "availability": "live",
+      "capabilities": ["motion-transfer"],
+      "required_inputs": ["image_url", "reference_video_url"],
+      "docs_url": "https://help.aliyun.com/zh/model-studio/wan-animate-move-api",
+      "cost_note": "Alibaba Cloud bills this request to the workspace associated with DASHSCOPE_API_KEY. Check the current regional price before execution."
+    },
+    {
+      "id": "wan2.7-image-pro",
+      "provider": "aliyun",
+      "api_model": "wan2.7-image-pro",
+      "adapter": "dashscope-wan-image",
+      "availability": "live",
+      "capabilities": ["character-sheet", "sticker-set", "image-edit"],
+      "required_inputs": ["image_url", "prompt"],
+      "docs_url": "https://help.aliyun.com/zh/model-studio/wan-image-generation-and-editing-api-reference",
+      "cost_note": "Alibaba Cloud bills image generation to the workspace associated with DASHSCOPE_API_KEY. Check regional availability and the current price before execution."
+    },
+    {
+      "id": "seedance-2.0",
+      "provider": "byteplus",
+      "api_model": "",
+      "adapter": "modelark-video",
+      "availability": "live",
+      "capabilities": ["image-to-video", "text-to-video"],
+      "required_inputs": ["prompt"],
+      "docs_url": "https://docs.byteplus.com/en/docs/ModelArk/1520757",
+      "cost_note": "BytePlus bills this request to the account associated with ARK_API_KEY. Supply the model or endpoint ID enabled for your account."
+    },
+    {
+      "id": "seedance-2.0",
+      "provider": "volcengine",
+      "api_model": "",
+      "adapter": "modelark-video",
+      "availability": "live",
+      "capabilities": ["image-to-video", "text-to-video"],
+      "required_inputs": ["prompt"],
+      "docs_url": "https://www.volcengine.com/docs/82379/1520757",
+      "cost_note": "Volcengine bills this request to the account associated with ARK_API_KEY. Supply the model or endpoint ID enabled for your account."
+    },
+    {
+      "id": "kling-video-3.0-turbo",
+      "provider": "kling",
+      "api_model": "",
+      "adapter": "catalog-only",
+      "availability": "catalog",
+      "capabilities": ["image-to-video", "text-to-video"],
+      "required_inputs": ["prompt"],
+      "docs_url": "https://kling.ai/dev",
+      "cost_note": "Catalog entry only. The repository does not submit Kling jobs until its current request schema is implemented and tested."
+    },
+    {
+      "id": "gpt-image-2",
+      "provider": "openai",
+      "api_model": "gpt-image-2",
+      "adapter": "catalog-only",
+      "availability": "catalog",
+      "capabilities": ["character-sheet", "sticker-set", "image-edit"],
+      "required_inputs": ["image_url", "prompt"],
+      "docs_url": "https://developers.openai.com/api/docs/models/gpt-image-2",
+      "cost_note": "Catalog entry only. The repository does not submit image jobs through this adapter yet."
+    }
+  ]
+}

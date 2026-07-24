@@ -23,8 +23,10 @@
 </div>
 
 <p align="center">
-  <a href="docs/media/demo.mp4">Open the 8-second HD MP4 demo</a>
+  <a href="docs/media/demo.mp4?raw=1">Download the 8-second 720p MP4 demo (459 KB)</a>
 </p>
+
+GitHub does not reliably play MP4 files on a repository file page. Use the GIF above for an inline preview, or download the MP4 for the full-resolution version.
 
 > The character shown on this page comes from a separately maintained, unofficial character demo and is included only to demonstrate the engine. Its source frames, source videos, prompts, app bundle, and private project are not published. These promotional renders are not covered by the Apache-2.0 license and do not imply authorization, affiliation, cooperation, or endorsement by any person, team, brand, or other rights holder. See the [media boundary notes](docs/media/README.md).
 
@@ -92,28 +94,89 @@ python3 -m pip install pillow
 ./scripts/generate_demo_assets.py
 ```
 
+## Bring your own model key
+
+The repository now includes the first provider-neutral generation layer for a future “one character image to a complete pet pack” workflow. Users choose a provider and model, keep billing on their own model account, and expose the key only through an environment variable. The repository never stores a raw key.
+
+```bash
+./scripts/pet_pack.py providers
+./scripts/pet_pack.py providers --capability image-to-video
+./scripts/pet_pack.py doctor --provider aliyun
+```
+
+The current reviewed live adapters are:
+
+| Workflow | Model entry | Status |
+| --- | --- | --- |
+| Consistent character sheets and sticker images | `aliyun/wan2.7-image-pro` | Live synchronous adapter |
+| Copy motion from a reference clip | `aliyun/wan2.2-animate-move` | Live adapter |
+| Image/text to asynchronous video | `byteplus/seedance-2.0` or `volcengine/seedance-2.0` | Live adapter; requires the model/endpoint ID enabled for your account |
+| Alternative sticker images | `openai/gpt-image-2` | Capability catalog only |
+| Kling image/text to video | `kling/kling-video-3.0-turbo` | Capability catalog only |
+
+“Catalog only” is deliberate: it lets a UI filter models by capability without pretending an unreviewed billing API is ready. New adapters can implement the same small provider interface.
+
+Create a validated, no-charge plan first:
+
+```bash
+./scripts/pet_pack.py plan \
+  --model aliyun/wan2.7-image-pro \
+  --task sticker-set \
+  --image-url https://example.com/character.png \
+  --prompt "Create eight consistent full-body desktop-pet expressions" \
+  --count 8 \
+  --output .petpack/stickers.json
+
+./scripts/pet_pack.py plan \
+  --model aliyun/wan2.2-animate-move \
+  --task motion-transfer \
+  --image-url https://example.com/character.png \
+  --reference-video-url https://example.com/owned-action.mp4 \
+  --output .petpack/wan-action.json
+```
+
+To execute it, set `DASHSCOPE_API_KEY` and the official `DASHSCOPE_BASE_URL` for your workspace outside the repository, then run:
+
+```bash
+./scripts/pet_pack.py submit \
+  --plan .petpack/wan-action.json \
+  --execute \
+  --accept-cost \
+  --accept-rights \
+  --wait
+```
+
+All three confirmation flags are required before a billed request can leave the machine. Synchronous image results are downloaded immediately; asynchronous video results are downloaded with `--wait`. Output goes to the ignored `pet-pack-output/` directory. Plan files can contain private or signed input URLs, so `.petpack/` is also ignored and must not be committed. Pricing changes independently of this project; review the provider's current price before execution.
+
 ## Project structure
 
 ```text
 Sources/DesktopPetEngine/  AppKit engine and open-source Blob frame pack
 scripts/                   Asset generation, preprocessing, build, media, and validation tools
+petpack/                   BYOK catalog, plans, credentials, and async provider adapters
+config/                    Provider/model capability catalog
 packaging/                 macOS app bundle metadata
 docs/media/                Homepage images, GIF, MP4, and media boundary notes
 assets_config.example.json Local asset configuration template
-skill/                     Installable Codex desktop-pet skill
+skill/                     Installable build and generation Codex skills
 ```
 
-## Install the Codex skill
+## Install the Codex skills
 
-The repository includes the `build-macos-desktop-pet` skill. It can create a project from a clean template, process action assets, build a universal app, and scan a release for local paths, signing links, credentials, and configured restricted names.
+The repository includes two skills:
+
+- `generate-desktop-pet-pack` plans a rights-safe image/action pack, selects models by capability, and keeps paid execution behind an explicit confirmation boundary.
+- `build-macos-desktop-pet` processes authorized action assets, builds a universal app, and audits a release for local paths, credentials, and restricted material.
 
 ```bash
 cp -R skill/build-macos-desktop-pet ~/.codex/skills/
+cp -R skill/generate-desktop-pet-pack ~/.codex/skills/
 ```
 
 After installation, ask Codex:
 
 ```text
+Use $generate-desktop-pet-pack to plan a sticker and action pack from my original character image.
 Use $build-macos-desktop-pet to turn my licensed transparent action videos into a macOS desktop pet.
 ```
 

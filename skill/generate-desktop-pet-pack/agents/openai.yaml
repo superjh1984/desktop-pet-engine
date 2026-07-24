@@ -1,0 +1,4 @@
+interface:
+  display_name: "Generate Desktop Pet Pack"
+  short_description: "Generate pet sticker and motion packs with BYOK models"
+  default_prompt: "Use $generate-desktop-pet-pack to plan a rights-safe sticker and action pack from my character image with my chosen model provider."

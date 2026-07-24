@@ -23,8 +23,10 @@
 </div>
 
 <p align="center">
-  <a href="docs/media/demo.mp4">打开 8 秒高清 MP4 演示</a>
+  <a href="docs/media/demo.mp4?raw=1">下载 8 秒 720p MP4 演示（459 KB）</a>
 </p>
+
+GitHub 不会在仓库文件页稳定地直接播放 MP4；页面内预览请看上方 GIF，需要完整清晰版本时再下载 MP4。
 
 > 首页角色画面来自一个单独保存的非官方角色 Demo，只用于展示引擎效果。角色原始帧、源视频、提示词、安装包和私人项目均未公开；这些首页宣传媒体不属于 Apache-2.0 开源授权，也不代表任何人物、球队、品牌或其他权利方授权、合作或背书。详见 [媒体边界说明](docs/media/README.md)。
 
@@ -92,28 +94,89 @@ python3 -m pip install pillow
 ./scripts/generate_demo_assets.py
 ```
 
+## 用户自带模型 Key
+
+仓库现已加入“从一张角色图生成整套桌宠素材”所需的第一版模型中间层。用户自行选择模型服务商，费用直接记在用户自己的模型账户中；Key 只通过环境变量读取，仓库不会保存 Key 明文。
+
+```bash
+./scripts/pet_pack.py providers
+./scripts/pet_pack.py providers --capability image-to-video
+./scripts/pet_pack.py doctor --provider aliyun
+```
+
+目前已经审查并接通的能力如下：
+
+| 工作流 | 模型条目 | 状态 |
+| --- | --- | --- |
+| 生成角色一致的设定图与表情组图 | `aliyun/wan2.7-image-pro` | 已接通同步接口 |
+| 让角色模仿参考视频动作 | `aliyun/wan2.2-animate-move` | 已接通 |
+| 图片/文字异步生成视频 | `byteplus/seedance-2.0` 或 `volcengine/seedance-2.0` | 已接通；需填写账户实际可用的模型或推理接入点 ID |
+| 其他表情包图片 | `openai/gpt-image-2` | 仅能力目录 |
+| 可灵图片/文字生成视频 | `kling/kling-video-3.0-turbo` | 仅能力目录 |
+
+“仅能力目录”是有意保留的边界：界面已经可以按能力筛选模型，但在调用协议完成审查和测试之前，不会假装已经接通付费接口。后续模型只需实现同一套小型 Provider 接口。
+
+先生成一个经过校验、不会产生费用的调用计划：
+
+```bash
+./scripts/pet_pack.py plan \
+  --model aliyun/wan2.7-image-pro \
+  --task sticker-set \
+  --image-url https://example.com/character.png \
+  --prompt "生成八张角色一致、全身完整的桌宠表情图" \
+  --count 8 \
+  --output .petpack/stickers.json
+
+./scripts/pet_pack.py plan \
+  --model aliyun/wan2.2-animate-move \
+  --task motion-transfer \
+  --image-url https://example.com/character.png \
+  --reference-video-url https://example.com/owned-action.mp4 \
+  --output .petpack/wan-action.json
+```
+
+需要真正执行时，在仓库之外设置 `DASHSCOPE_API_KEY` 和当前工作空间对应的官方 `DASHSCOPE_BASE_URL`，然后运行：
+
+```bash
+./scripts/pet_pack.py submit \
+  --plan .petpack/wan-action.json \
+  --execute \
+  --accept-cost \
+  --accept-rights \
+  --wait
+```
+
+只有同时提供三个确认参数，程序才会发出可能计费的请求。同步图片结果会立即下载；异步视频需配合 `--wait` 下载。生成结果统一保存到已忽略的 `pet-pack-output/`；计划文件可能包含私人地址或带签名的素材地址，因此 `.petpack/` 同样不会被 Git 跟踪。模型价格会独立变化，执行前应查看服务商当期价格。
+
 ## 项目结构
 
 ```text
 Sources/DesktopPetEngine/  AppKit 桌宠代码与开源 Blob 帧包
 scripts/                   素材生成、预处理、构建、媒体与自检脚本
+petpack/                   BYOK 模型目录、调用计划、凭据引用与异步适配器
+config/                    服务商与模型能力目录
 packaging/                 macOS App 包信息
 docs/media/                首页截图、GIF、MP4 与媒体边界说明
 assets_config.example.json 本地素材配置模板
-skill/                     可安装的 Codex 桌宠制作 Skill
+skill/                     可安装的素材生成与桌宠构建 Skill
 ```
 
-## 安装 Codex Skill
+## 安装 Codex Skills
 
-仓库包含 `build-macos-desktop-pet` Skill。它可以从干净模板创建项目、处理动作素材、构建双架构 App，并在公开发布前扫描本机路径、签名链接、凭据及指定的受限名称。
+仓库包含两个 Skill：
+
+- `generate-desktop-pet-pack`：从原创角色图规划表情与动作包，按能力选择模型，并在真正付费调用前强制确认。
+- `build-macos-desktop-pet`：处理已获授权的动作素材、构建双架构 App，并在发布前扫描本机路径、凭据与受限内容。
 
 ```bash
 cp -R skill/build-macos-desktop-pet ~/.codex/skills/
+cp -R skill/generate-desktop-pet-pack ~/.codex/skills/
 ```
 
 安装后可以直接说：
 
 ```text
+使用 $generate-desktop-pet-pack，帮我把原创角色图规划成一套表情和动作素材。
 使用 $build-macos-desktop-pet，把我拥有版权的透明动作视频做成 macOS 桌宠。
 ```
 
