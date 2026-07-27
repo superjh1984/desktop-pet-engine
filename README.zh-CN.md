@@ -60,7 +60,7 @@
 要求：macOS 12 或更高版本、Xcode Command Line Tools。
 
 ```bash
-git clone https://github.com/superjh1984/desktop-pet-engine.git
+git clone https://github.com/InsiderX-Pro/desktop-pet-engine.git
 cd desktop-pet-engine
 ./scripts/check_demo.sh
 ./scripts/run_demo.sh

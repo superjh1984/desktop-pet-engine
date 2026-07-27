@@ -60,7 +60,7 @@ The engine also uses per-pixel alpha hit testing: dragging and the contextual ac
 Requirements: macOS 12 or later and Xcode Command Line Tools.
 
 ```bash
-git clone https://github.com/superjh1984/desktop-pet-engine.git
+git clone https://github.com/InsiderX-Pro/desktop-pet-engine.git
 cd desktop-pet-engine
 ./scripts/check_demo.sh
 ./scripts/run_demo.sh
