@@ -8,6 +8,14 @@
   <p><a href="README.md">English</a> · <strong>简体中文</strong></p>
 
   <p>
+    <a href="https://github.com/InsiderX-Pro/desktop-pet-engine/releases/tag/habao-showcase-v1.7.0-preview">
+      <img src="https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD_macOS_%E5%B1%95%E7%A4%BA%E7%89%88-v1.7.0-0A84FF?style=for-the-badge&amp;logo=apple&amp;logoColor=white" alt="下载哈宝桌宠 macOS 展示版">
+    </a>
+  </p>
+
+  <p><sub>macOS 12+ · Apple Silicon 与 Intel · 未经 Apple 公证的预览版</sub></p>
+
+  <p>
     <img src="https://img.shields.io/badge/macOS-12%2B-0A84FF?style=flat-square" alt="macOS 12+">
     <img src="https://img.shields.io/badge/Swift-5.9-F05138?style=flat-square" alt="Swift 5.9">
     <img src="https://img.shields.io/badge/AppKit-Native-45CFCF?style=flat-square" alt="原生 AppKit">
@@ -60,7 +68,7 @@
 要求：macOS 12 或更高版本、Xcode Command Line Tools。
 
 ```bash
-git clone https://github.com/superjh1984/desktop-pet-engine.git
+git clone https://github.com/InsiderX-Pro/desktop-pet-engine.git
 cd desktop-pet-engine
 ./scripts/check_demo.sh
 ./scripts/run_demo.sh

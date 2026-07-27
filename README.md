@@ -8,6 +8,14 @@
   <p><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
 
   <p>
+    <a href="https://github.com/InsiderX-Pro/desktop-pet-engine/releases/tag/habao-showcase-v1.7.0-preview">
+      <img src="https://img.shields.io/badge/Download_macOS_Showcase-v1.7.0-0A84FF?style=for-the-badge&amp;logo=apple&amp;logoColor=white" alt="Download the HaBao Pet macOS showcase">
+    </a>
+  </p>
+
+  <p><sub>macOS 12+ · Apple Silicon &amp; Intel · Unnotarized preview</sub></p>
+
+  <p>
     <img src="https://img.shields.io/badge/macOS-12%2B-0A84FF?style=flat-square" alt="macOS 12+">
     <img src="https://img.shields.io/badge/Swift-5.9-F05138?style=flat-square" alt="Swift 5.9">
     <img src="https://img.shields.io/badge/AppKit-Native-45CFCF?style=flat-square" alt="Native AppKit">
@@ -60,7 +68,7 @@ The engine also uses per-pixel alpha hit testing: dragging and the contextual ac
 Requirements: macOS 12 or later and Xcode Command Line Tools.
 
 ```bash
-git clone https://github.com/superjh1984/desktop-pet-engine.git
+git clone https://github.com/InsiderX-Pro/desktop-pet-engine.git
 cd desktop-pet-engine
 ./scripts/check_demo.sh
 ./scripts/run_demo.sh
