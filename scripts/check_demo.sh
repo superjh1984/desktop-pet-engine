@@ -2,6 +2,9 @@
 set -euo pipefail
 
 ROOT_DIR="${0:A:h:h}"
+cd "$ROOT_DIR"
+
+python3 -m unittest discover -s tests -v
 APP_PATH="$($ROOT_DIR/scripts/build_app.sh | tail -1)"
 
 "$APP_PATH/Contents/MacOS/DesktopPetEngine" --self-test
