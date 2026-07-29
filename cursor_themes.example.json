@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "themes": [
+    {
+      "id": "blob-blue",
+      "title": {
+        "en": "Blue Blob",
+        "zh-Hans": "蓝色 Blob"
+      },
+      "cape_file": "blob-blue.cape",
+      "cape_identifier": "io.insiderx.desktop-pet-engine.cursor.blob-blue",
+      "actions": [
+        "walk",
+        "playBall"
+      ]
+    },
+    {
+      "id": "blob-gold",
+      "title": {
+        "en": "Golden Blob",
+        "zh-Hans": "金色 Blob"
+      },
+      "cape_file": "blob-gold.cape",
+      "cape_identifier": "io.insiderx.desktop-pet-engine.cursor.blob-gold",
+      "actions": [
+        "dance",
+        "happy"
+      ]
+    }
+  ]
+}

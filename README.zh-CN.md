@@ -20,6 +20,7 @@
     <img src="https://img.shields.io/badge/Swift-5.9-F05138?style=flat-square" alt="Swift 5.9">
     <img src="https://img.shields.io/badge/AppKit-Native-45CFCF?style=flat-square" alt="原生 AppKit">
     <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20arm64-6B7CFF?style=flat-square" alt="Universal 2">
+    <a href="https://github.com/InsiderX-Pro/desktop-pet-engine/releases/tag/v1.1.0"><img src="https://img.shields.io/badge/engine-v1.1.0-34C759?style=flat-square" alt="引擎 v1.1.0"></a>
     <img src="https://img.shields.io/badge/license-Apache--2.0-F5A623?style=flat-square" alt="Apache-2.0">
   </p>
 </div>
@@ -44,6 +45,7 @@
 | --- | --- |
 | 原生桌面体验 | AppKit 透明置顶窗口，不依赖 Electron |
 | 精确交互 | 按当前动画帧 Alpha 做像素命中与点击穿透 |
+| 可配置鼠标主题 | 可选的 Mousecape 兼容主题、选择记忆与按宠物动作自动切换 |
 | 行为系统 | 待机、手动动作、随机动作、自主动作与中断恢复 |
 | 素材流水线 | 检测 Alpha、黑/绿幕抠像、统一画布、生成 PNG 帧包 |
 | 可复现发布 | 一键构建并校验 x86_64 + arm64 Universal 2 App |
@@ -58,6 +60,8 @@
 </div>
 
 引擎同时使用逐像素 Alpha 命中检测：拖拽和右键动作菜单只作用于可见角色区域，宠物窗口的透明区域则会尽可能把鼠标事件交还给桌面。
+
+1.1 版本新增了配置驱动的可选系统鼠标主题：用户可以选择基础鼠标，并让不同宠物动作自动切换主题。开源仓库只提供原创 Blob 示例鼠标生成器，不公开私人展示版鼠标素材，也不会捆绑 Mousecape。安装方法与独立的依赖/许可证边界详见双语[鼠标主题指南](docs/cursor-themes.md)。
 
 <div align="center">
   <img src="docs/media/desktop-preview.png" alt="原生 macOS 桌面宠物预览" width="100%">
@@ -108,6 +112,7 @@ scripts/                   素材生成、预处理、构建、媒体与自检�
 packaging/                 macOS App 包信息
 docs/media/                首页截图、GIF、MP4 与媒体边界说明
 assets_config.example.json 本地素材配置模板
+cursor_themes.example.json 本地鼠标主题配置模板
 skill/                     可安装的 Codex 桌宠制作 Skill
 ```
 

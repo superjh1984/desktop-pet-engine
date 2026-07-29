@@ -6,6 +6,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(cursorThemeDidChange),
+            name: .cursorThemeDidChange,
+            object: nil
+        )
+
         do {
             let assets = try AssetCatalog()
             try assets.validateRequiredAssets()
@@ -37,6 +44,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_ notification: Notification) {
+        CursorThemeController.shared.restoreBaseThemeBeforeExit()
+        NotificationCenter.default.removeObserver(self)
         window?.ignoresMouseEvents = true
     }
 
@@ -56,6 +65,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         hideItem.target = self
         menu.addItem(hideItem)
 
+        menu.addItem(CursorThemeController.shared.makeMenuItem())
+
         menu.addItem(.separator())
         let quitItem = NSMenuItem(title: "退出", action: #selector(quitApp), keyEquivalent: "")
         quitItem.target = self
@@ -67,7 +78,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         item.button?.title = "🐾"
         item.button?.toolTip = "桌宠引擎"
+        statusItem = item
+        rebuildStatusMenu()
+    }
 
+    private func rebuildStatusMenu() {
+        guard let item = statusItem else { return }
         let menu = NSMenu(title: "桌宠引擎")
         let showItem = NSMenuItem(title: "显示示例桌宠", action: #selector(showPet), keyEquivalent: "")
         showItem.target = self
@@ -77,13 +93,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         hideItem.target = self
         menu.addItem(hideItem)
 
+        menu.addItem(CursorThemeController.shared.makeMenuItem())
+
         menu.addItem(.separator())
         let quitItem = NSMenuItem(title: "退出", action: #selector(quitApp), keyEquivalent: "q")
         quitItem.target = self
         menu.addItem(quitItem)
 
         item.menu = menu
-        statusItem = item
     }
 
     @objc private func showPet() {
@@ -92,6 +109,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func hidePet() {
         controller?.hidePet()
+    }
+
+    @objc private func cursorThemeDidChange() {
+        DispatchQueue.main.async { [weak self] in
+            self?.rebuildStatusMenu()
+        }
     }
 
     @objc private func quitApp() {
