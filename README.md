@@ -20,6 +20,7 @@
     <img src="https://img.shields.io/badge/Swift-5.9-F05138?style=flat-square" alt="Swift 5.9">
     <img src="https://img.shields.io/badge/AppKit-Native-45CFCF?style=flat-square" alt="Native AppKit">
     <img src="https://img.shields.io/badge/arch-x86__64%20%7C%20arm64-6B7CFF?style=flat-square" alt="Universal 2">
+    <a href="https://github.com/InsiderX-Pro/desktop-pet-engine/releases/tag/v1.1.0"><img src="https://img.shields.io/badge/engine-v1.1.0-34C759?style=flat-square" alt="Engine v1.1.0"></a>
     <img src="https://img.shields.io/badge/license-Apache--2.0-F5A623?style=flat-square" alt="Apache-2.0">
   </p>
 </div>
@@ -44,6 +45,7 @@ This is a lightweight native AppKit desktop-pet engine. It provides a transparen
 | --- | --- |
 | Native desktop experience | Transparent always-on-top AppKit window, with no Electron dependency |
 | Precise interaction | Alpha-aware hit testing and click-through based on the current animation frame |
+| Configurable cursor themes | Optional Mousecape-compatible themes with persistence and per-action switching |
 | Behavior system | Idle, manual, random, and autonomous actions with interruption recovery |
 | Asset pipeline | Alpha detection, black/green-screen removal, normalized canvas, and PNG frame-pack generation |
 | Reproducible builds | One-command build and validation for an x86_64 + arm64 Universal 2 app |
@@ -58,6 +60,8 @@ Move the pointer around the pet and it responds to the cursor's position and mot
 </div>
 
 The engine also uses per-pixel alpha hit testing: dragging and the contextual action menu apply to the visible character, while transparent areas of the pet window pass pointer events through whenever possible.
+
+Version 1.1 adds optional, configuration-driven system cursor themes. Users can select a base cursor and let pet actions switch themes automatically. The open-source repository ships only a generator for original Blob demo cursors; it does not publish the private showcase cursor artwork or bundle Mousecape. See the bilingual [cursor theme guide](docs/cursor-themes.md) for setup and the separate dependency/license boundary.
 
 <div align="center">
   <img src="docs/media/desktop-preview.png" alt="Native macOS desktop pet preview" width="100%">
@@ -108,6 +112,7 @@ scripts/                   Asset generation, preprocessing, build, media, and va
 packaging/                 macOS app bundle metadata
 docs/media/                Homepage images, GIF, MP4, and media boundary notes
 assets_config.example.json Local asset configuration template
+cursor_themes.example.json Local cursor theme configuration template
 skill/                     Installable Codex desktop-pet skill
 ```
 

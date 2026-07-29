@@ -10,3 +10,5 @@ __pycache__/
 *.dmg
 *.zip
 assets_config.json
+cursor_themes.json
+CursorThemes/

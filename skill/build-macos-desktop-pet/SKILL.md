@@ -36,9 +36,13 @@ Create rights-safe native macOS desktop pets from the bundled public template. K
    - Keep `AssetCatalog.validateRequiredAssets()` synchronized with the shipped actions.
    - Replace the display name, bundle ID, About text, menu labels, icon, and asset provenance.
    - Preserve transparent hit testing and click-through behavior unless the user explicitly requests another interaction model.
+   - When adding system cursor themes, read [references/cursor-themes.md](references/cursor-themes.md).
+   - Keep cursor artwork in the same owned/licensed asset lane as character art. Never copy restricted demo `.cape` files into the public template.
+   - Treat Mousecape as an optional, separately installed dependency. Do not bundle it or imply that this project's Apache-2.0 license overrides its upstream terms.
 
 6. Build and verify.
    - Run `scripts/check_demo.sh` in the output project.
+   - Run the built executable with `--cursor-self-test` when cursor themes are configured.
    - Require x86_64 and arm64 for a general macOS release unless the user explicitly limits architectures.
    - Check idle CPU, memory growth across every action, multi-display placement, Spaces/full-screen behavior, sleep/wake, and first-run installation.
 
@@ -58,6 +62,6 @@ Create rights-safe native macOS desktop pets from the bundled public template. K
 - `scripts/create_from_template.py`: safely copy and rename the template.
 - `scripts/audit_public_release.py`: scan a release tree for sensitive content and user-specified restricted terms.
 - `references/asset-pipeline.md`: frame-pack and preprocessing details.
+- `references/cursor-themes.md`: configuration, validation, dependency, and rights guidance for cursor themes.
 - `references/release-checklist.md`: public source/binary release checks.
 - `references/restricted-demo.md`: isolation and access rules for private demos.
-

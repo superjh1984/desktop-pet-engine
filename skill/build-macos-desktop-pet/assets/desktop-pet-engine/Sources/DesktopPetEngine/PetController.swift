@@ -35,6 +35,7 @@ final class PetController: NSObject {
 
     func start() {
         enterIdle(resetCountdown: true)
+        CursorThemeController.shared.restorePersistedThemeOnLaunch()
         mouseTimer = Timer.scheduledTimer(
             timeInterval: 1.0 / 30.0,
             target: self,
@@ -72,6 +73,7 @@ final class PetController: NSObject {
     func hidePet() {
         playbackTimer?.invalidate()
         inactivityTimer?.invalidate()
+        CursorThemeController.shared.petDidEnterIdle()
         window.orderOut(nil)
     }
 
@@ -115,6 +117,7 @@ final class PetController: NSObject {
         }
         menu.setSubmenu(sizeMenu, for: sizeItem)
         menu.addItem(sizeItem)
+        menu.addItem(CursorThemeController.shared.makeMenuItem())
 
         menu.addItem(.separator())
         let aboutItem = NSMenuItem(title: "关于", action: #selector(selectAbout), keyEquivalent: "")
@@ -218,6 +221,7 @@ final class PetController: NSObject {
         inactivityTimer?.invalidate()
         currentClip = clip
         frameIndex = 0
+        CursorThemeController.shared.petDidStart(action: clip.action)
         displayFrame(clip.image(at: 0))
 
         let timer = Timer.scheduledTimer(
@@ -258,6 +262,7 @@ final class PetController: NSObject {
         frameIndex = 0
         mode = .idle
         currentIdleDirection = .center
+        CursorThemeController.shared.petDidEnterIdle()
 
         if let idleClip = currentClip {
             displayFrame(idleClip.image(for: .center))

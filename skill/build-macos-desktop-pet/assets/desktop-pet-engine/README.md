@@ -4,6 +4,10 @@
 
 仓库只包含通用代码与程序生成的原创 Blob 示例宠物，不包含任何真人、球队、影视、动漫或品牌素材。
 
+1.1 版本还提供可选的 Mousecape 兼容鼠标主题、基础主题记忆与按桌宠动作自动切换。
+模板不会捆绑 Mousecape，也不会包含私人展示版鼠标素材。详见双语
+[鼠标主题指南](docs/cursor-themes.md)。
+
 ## 快速开始
 
 要求：macOS 12 或更高版本、Xcode Command Line Tools。
@@ -35,6 +39,19 @@ python3 -m pip install pillow
 ./scripts/generate_demo_assets.py
 ```
 
+## 自定义鼠标主题
+
+生成两个原创 Blob 示例鼠标，并运行完整检查：
+
+```bash
+./scripts/generate_demo_cursor_themes.py
+./scripts/check_demo.sh
+```
+
+自己的 `.cape` 文件应放入已被忽略的 `CursorThemes/`，并使用
+`cursor_themes.json` 配置。Mousecape 需要由用户自行安装，其上游使用私有
+CoreGraphics API，并把使用或修改限制为个人、非商业目的；商业使用前请独立确认。
+
 ## 素材要求
 
 - 只提交你创作或已取得明确授权的素材。
@@ -49,6 +66,7 @@ Sources/DesktopPetEngine/  AppKit 桌宠代码与示例序列帧
 scripts/                   素材生成、预处理、构建与自检
 packaging/                 App 包信息
 assets_config.example.json 素材配置模板
+cursor_themes.example.json 鼠标主题配置模板
 ```
 
 ## 开源许可
@@ -56,4 +74,3 @@ assets_config.example.json 素材配置模板
 代码、脚本以及仓库内由 `generate_demo_assets.py` 生成的 Blob 示例素材采用 Apache License 2.0。你导入的素材保持其原有权利状态，不会因使用本项目而自动获得 Apache-2.0 许可。
 
 参见 [LICENSE](LICENSE)、[NOTICE](NOTICE) 和 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
-

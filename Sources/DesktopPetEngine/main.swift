@@ -27,6 +27,17 @@ if CommandLine.arguments.contains("--self-test") {
     }
 }
 
+if CommandLine.arguments.contains("--cursor-self-test") {
+    do {
+        let count = try CursorThemeController.shared.validateConfiguredThemes()
+        print("鼠标主题自检通过：\(count) 个自定义主题 / Cursor theme check passed: \(count) custom themes")
+        exit(EXIT_SUCCESS)
+    } catch {
+        fputs("鼠标主题自检失败 / Cursor theme check failed: \(error.localizedDescription)\n", stderr)
+        exit(EXIT_FAILURE)
+    }
+}
+
 let application = NSApplication.shared
 let appDelegate = AppDelegate()
 application.delegate = appDelegate
